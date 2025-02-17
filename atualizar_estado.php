@@ -3,7 +3,7 @@
 // Configurações do banco de dados
 $servername = "localhost";
 $username = "aplicacao_leds";
-$password = "sua_senha_segura";
+$password = "18071988";
 $dbname = "controle_leds";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
