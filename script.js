@@ -1,7 +1,7 @@
 function mudarEstado(ledId, novoEstado) {
     const params = "led_id=" + encodeURIComponent(ledId) + "&novo_estado=" + encodeURIComponent(novoEstado);
 
-    fetch('/atualizar_estado.php', {
+    fetch('atualizar_estado.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
