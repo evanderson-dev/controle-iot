@@ -1,5 +1,6 @@
 <?php
 include 'db.php';
+echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">";
 
 try {
     $conn = getDbConnection();
