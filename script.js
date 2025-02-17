@@ -16,5 +16,5 @@ function mudarEstado(ledId, novoEstado) {
     .catch(error => {
         console.error('Erro:', error);
         alert('Ocorreu um erro ao comunicar com o servidor.');
-    })
+    }
 }
