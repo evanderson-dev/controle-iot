@@ -25,7 +25,7 @@
     // Configurações do banco de dados
     $servername = "localhost";
     $username = "aplicacao_leds";
-    $password = "sua_senha_segura"; // Substitua pela senha correta
+    $password = "18071988"; // Substitua pela senha correta
     $dbname = "controle_leds";
 
     try {
@@ -80,7 +80,7 @@
             .catch(error => {
                 console.error('Erro:', error);
                 alert('Ocorreu um erro ao comunicar com o servidor.');
-            }
+            })
         }
     </script>
 </body>
