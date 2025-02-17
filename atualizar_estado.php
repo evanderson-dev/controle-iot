@@ -1,23 +1,12 @@
 <?php
-
-// Configurações do banco de dados
-$servername = "localhost";
-$username = "aplicacao_leds";
-$password = "18071988";
-$dbname = "controle_leds";
+include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $led_id = $_POST["led_id"];
     $novo_estado = $_POST["novo_estado"];
 
     try {
-        // Cria a conexão
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Verifica a conexão
-        if ($conn->connect_error) {
-            throw new Exception("Falha na conexão com o banco de dados: " . $conn->connect_error);
-        }
+        $conn = getDbConnection();
 
         // Prepara e executa a query
         $stmt = $conn->prepare("UPDATE leds SET estado = ? WHERE led_id = ?");
@@ -40,5 +29,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Acesso inválido.";
 }
-
 ?>
