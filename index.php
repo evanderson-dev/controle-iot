@@ -2,21 +2,7 @@
 <html>
 <head>
 	<title>Controle de LED (Estado)</title>
-	<style>
-		.button {
-			background-color: #4cAF50; /* Cor verde */
-			border: none;
-			color: white;
-			padding: px 32px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 4px 2px;
-			cursor: pointer;
-			border-radius: 5px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<h1>Controle de LED (Estado)</h1>
