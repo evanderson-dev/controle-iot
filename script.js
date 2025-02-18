@@ -1,4 +1,6 @@
 function mudarEstado(id, novoEstado) {
+    console.log("mudarEstado chamado com id:", id, "e novoEstado:", novoEstado); // Adicione este log
+
     const params = "id=" + encodeURIComponent(id) + "&novo_estado=" + encodeURIComponent(novoEstado);
 
     fetch('/atualizar_estado.php', {
@@ -10,7 +12,7 @@ function mudarEstado(id, novoEstado) {
     })
     .then(response => response.text())
     .then(data => {
-        console.log(data); // Exibe a resposta do servidor no console
+        console.log("Resposta do servidor:", data); // Adicione este log
         location.reload(); // Recarrega a página para exibir o novo estado
     })
     .catch(error => {
