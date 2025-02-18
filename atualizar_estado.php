@@ -1,5 +1,11 @@
 <?php
+session_start();
 include 'db.php';
+
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    echo "Acesso não autorizado.";
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["id"]) && isset($_POST["novo_estado"])) {
