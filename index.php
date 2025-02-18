@@ -47,9 +47,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <a href="alterar_senha.php" class="button">Alterar Senha</a><br>
             <a href="logout.php" class="button">Logoff</a><br>            
         </div>
-        <div class="back-button-container">
-            <a href="login.php" class="button">Voltar</a><br>
-        </div>
     </div>
     <script src="script.js"></script>
 </body>
