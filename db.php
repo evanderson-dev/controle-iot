@@ -4,7 +4,7 @@
 $servername = "localhost";
 $username = "aplicacao_leds";
 $password = "18071988";
-$dbname = "controle_leds";
+$dbname = "cofre_iot";
 
 function getDbConnection() {
     global $servername, $username, $password, $dbname;

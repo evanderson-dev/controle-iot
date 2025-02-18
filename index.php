@@ -6,26 +6,26 @@ include 'db.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de LEDs</title>
+    <title>Controle do Cofre</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Controle de LEDs</h1>
+        <h1>Controle do Cofre</h1>
         <?php
         try {
             $conn = getDbConnection();
 
-            $stmt = $conn->prepare("SELECT led_id, estado FROM leds");
+            $stmt = $conn->prepare("SELECT id, estado FROM cofre");
             $stmt->execute();
             $result = $stmt->get_result();
 
-            // Exibe os estados dos LEDs
+            // Exibe os estados do cofre
             while ($row = $result->fetch_assoc()) {
-                echo "<div class=\"led-control\">";
-                echo "<p>LED " . substr($row["led_id"], 4) . ": <span id=\"" . $row["led_id"] . "\">" . htmlspecialchars($row["estado"]) . "</span></p>";
-                echo "<button class=\"button\" onclick=\"mudarEstado('" . $row["led_id"] . "', 'ON')\">Ligar</button>";
-                echo "<button class=\"button\" onclick=\"mudarEstado('" . $row["led_id"] . "', 'OFF')\">Desligar</button>";
+                echo "<div class=\"cofre-control\">";
+                echo "<p>Cofre " . $row["id"] . ": <span id=\"cofre_" . $row["id"] . "\">" . htmlspecialchars($row["estado"]) . "</span></p>";
+                echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'desbloqueado')\">Desbloquear</button>";
+                echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'bloqueado')\">Bloquear</button>";
                 echo "</div>";
             }
 
