@@ -35,6 +35,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'desbloqueado')\">Desbloquear</button>";
                 echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'bloqueado')\">Bloquear</button>";
                 echo "</div>";
+                echo "<br><br>";
             }
 
             $stmt->close();
