@@ -45,6 +45,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         }
         ?>
     </div>
+    <div class="back-button-container">
+        <a href="login.php" class="button">Voltar</a>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

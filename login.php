@@ -53,5 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="button">Login</button>
         </form>
     </div>
+    <div class="back-button-container">
+        <a href="index.php" class="button">Voltar</a>
+    </div>
 </body>
 </html>
