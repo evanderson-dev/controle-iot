@@ -43,10 +43,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             echo "Erro: " . $e->getMessage();
         }
         ?>
-        <a href="alterar_senha.php" class="button">Alterar Senha</a>
-        <a href="logout.php" class="button">Logoff</a>
         <div class="back-button-container">
-            <a href="login.php" class="button">Voltar</a>
+            <a href="alterar_senha.php" class="button">Alterar Senha</a><br>
+            <a href="logout.php" class="button">Logoff</a><br>
+            <a href="login.php" class="button">Voltar</a><br>
         </div>
     </div>
     <script src="script.js"></script>
