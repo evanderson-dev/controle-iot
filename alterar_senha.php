@@ -75,9 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" name="confirmar_senha" placeholder="Confirmar Nova Senha" required>
             <button type="submit" class="button">Alterar Senha</button>
         </form>
-    </div>
-    <div class="back-button-container">
-        <a href="index.php" class="button">Voltar</a>
+        <div class="back-button-container">
+            <a href="index.php" class="button">Voltar</a>
+        </div>
     </div>
 </body>
 </html>

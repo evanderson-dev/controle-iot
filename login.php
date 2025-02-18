@@ -52,9 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" name="senha" placeholder="Senha" required>
             <button type="submit" class="button">Login</button>
         </form>
-    </div>
-    <div class="back-button-container">
-        <a href="index.php" class="button">Voltar</a>
+        <div class="back-button-container">
+            <a href="index.php" class="button">Voltar</a>
+        </div>
     </div>
 </body>
 </html>
