@@ -2,10 +2,11 @@
 session_start();
 include 'db.php';
 
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("Location: login.php");
-    exit;
-}
+// Comente as linhas abaixo para desabilitar a verificação de login
+// if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+//     header("Location: login.php");
+//     exit;
+// }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
