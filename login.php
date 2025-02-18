@@ -6,6 +6,28 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+$estado_cofre = '';
+
+try {
+    $conn = getDbConnection();
+
+    // Busca o estado do cofre no banco de dados
+    $stmt = $conn->prepare("SELECT estado FROM cofre WHERE id = 1");
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if ($row) {
+        $estado_cofre = htmlspecialchars($row["estado"]);
+    }
+
+    $stmt->close();
+    $conn->close();
+
+} catch (Exception $e) {
+    $error = "Erro: " . $e->getMessage();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST["senha"];
 
@@ -52,6 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" name="senha" placeholder="Senha" required>
             <button type="submit" class="button">Login</button>
         </form>
+        <div class="cofre-status">
+            <p>Status do Cofre: <span><?php echo $estado_cofre; ?></span></p>
+        </div>
     </div>
 </body>
 </html>

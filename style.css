@@ -71,3 +71,9 @@ form input {
     justify-content: center;
     margin-top: 20px;
 }
+
+.cofre-status {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}
