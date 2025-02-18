@@ -18,16 +18,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <body>
     <div class="container">
         <h1>Controle do Cofre</h1>
-        <a href="alterar_senha.php" class="button">Alterar Senha</a>
-        <a href="logout.php" class="button">Logoff</a>
         <?php
         try {
             $conn = getDbConnection();
-
+            
             $stmt = $conn->prepare("SELECT id, estado FROM cofre");
             $stmt->execute();
             $result = $stmt->get_result();
-
+            
             // Exibe os estados do cofre
             while ($row = $result->fetch_assoc()) {
                 echo "<div class=\"cofre-control\">";
@@ -37,14 +35,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 echo "</div>";
                 echo "<br><br>";
             }
-
+            
             $stmt->close();
             $conn->close();
-
+            
         } catch (Exception $e) {
             echo "Erro: " . $e->getMessage();
         }
         ?>
+        <a href="alterar_senha.php" class="button">Alterar Senha</a>
+        <a href="logout.php" class="button">Logoff</a>
         <div class="back-button-container">
             <a href="login.php" class="button">Voltar</a>
         </div>
