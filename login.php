@@ -2,6 +2,10 @@
 session_start();
 include 'db.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST["senha"];
 
@@ -9,10 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = getDbConnection();
 
         // Verifica a senha no banco de dados
-        $stmt = $conn->prepare("SELECT senha FROM cofre WHERE id = 1"); // Supondo que a senha está armazenada no registro com id = 1
+        $stmt = $conn->prepare("SELECT senha FROM cofre WHERE id = 1");
         $stmt->execute();
         $result = $stmt->get_result();
-        $row = $stmt->fetch_assoc();
+        $row = $result->fetch_assoc();
 
         if ($row && password_verify($senha, $row["senha"])) {
             $_SESSION["loggedin"] = true;
