@@ -18,6 +18,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <body>
     <div class="container">
         <h1>Controle do Cofre</h1>
+        <a href="alterar_senha.php" class="button">Alterar Senha</a>
         <?php
         try {
             $conn = getDbConnection();
