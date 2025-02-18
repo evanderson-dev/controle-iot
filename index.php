@@ -30,7 +30,7 @@ include 'db.php';
             // Exibe os estados do cofre
             while ($row = $result->fetch_assoc()) {
                 echo "<div class=\"cofre-control\">";
-                echo "<p>Status " . ": <span id=\"cofre_" . $row["id"] . "\">" . htmlspecialchars($row["estado"]) . "</span></p>";
+                echo "<p>Status: <span  class=\"status-display\"  id=\"cofre_" . $row["id"] . "\">" . htmlspecialchars($row["estado"]) . "</span></p>";
                 echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'desbloqueado')\">Desbloquear</button>";
                 echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'bloqueado')\">Bloquear</button>";
                 echo "</div>";
