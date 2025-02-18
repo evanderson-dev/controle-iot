@@ -1,9 +1,7 @@
 function mudarEstado(id, novoEstado) {
-    console.log("mudarEstado chamado com id:", id, "e novoEstado:", novoEstado); // Adicione este log
-
     const params = "id=" + encodeURIComponent(id) + "&novo_estado=" + encodeURIComponent(novoEstado);
 
-    fetch('/atualizar_estado.php', {
+    fetch('atualizar_estado.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -12,8 +10,18 @@ function mudarEstado(id, novoEstado) {
     })
     .then(response => response.text())
     .then(data => {
-        console.log("Resposta do servidor:", data); // Adicione este log
-        location.reload(); // Recarrega a página para exibir o novo estado
+        console.log("Resposta do servidor:", data); // Exibe a resposta do servidor no console
+        const estadoSpan = document.getElementById("cofre_" + id);
+        const botao = document.getElementById("botao_" + id);
+        if (novoEstado === 'desbloqueado') {
+            estadoSpan.textContent = 'desbloqueado';
+            botao.textContent = 'Bloquear';
+            botao.setAttribute('onclick', "mudarEstado(" + id + ", 'bloqueado')");
+        } else {
+            estadoSpan.textContent = 'bloqueado';
+            botao.textContent = 'Desbloquear';
+            botao.setAttribute('onclick', "mudarEstado(" + id + ", 'desbloqueado')");
+        }
     })
     .catch(error => {
         console.error('Erro:', error);

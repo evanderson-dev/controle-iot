@@ -29,10 +29,12 @@ include 'db.php';
             
             // Exibe os estados do cofre
             while ($row = $result->fetch_assoc()) {
+                $estado = htmlspecialchars($row["estado"]);
+                $botaoTexto = $estado === 'bloqueado' ? 'Desbloquear' : 'Bloquear';
+                $novoEstado = $estado === 'bloqueado' ? 'desbloqueado' : 'bloqueado';
                 echo "<div class=\"cofre-control\">";
-                echo "<p class=\"status-display\">Status: <span id=\"cofre_" . $row["id"] . "\">" . htmlspecialchars($row["estado"]) . "</span></p>";
-                echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'desbloqueado')\">Desbloquear</button>";
-                echo "<button class=\"button\" onclick=\"mudarEstado(" . $row["id"] . ", 'bloqueado')\">Bloquear</button>";
+                echo "<p class=\"status-display\">Status: <span id=\"cofre_" . $row["id"] . "\">" . $estado . "</span></p>";
+                echo "<button class=\"button\" id=\"botao_" . $row["id"] . "\" onclick=\"mudarEstado(" . $row["id"] . ", '" . $novoEstado . "')\">" . $botaoTexto . "</button>";
                 echo "</div>";
                 echo "<br><br>";
             }
