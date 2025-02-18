@@ -6,10 +6,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    echo "Acesso não autorizado.";
-    exit;
-}
+// Comente as linhas abaixo para desabilitar a verificação de login
+//if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+//   echo "Acesso não autorizado.";
+//    exit;
+//}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["id"]) && isset($_POST["novo_estado"])) {
