@@ -44,9 +44,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             echo "Erro: " . $e->getMessage();
         }
         ?>
-    </div>
-    <div class="back-button-container">
-        <a href="login.php" class="button">Voltar</a>
+        <div class="back-button-container">
+            <a href="login.php" class="button">Voltar</a>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
