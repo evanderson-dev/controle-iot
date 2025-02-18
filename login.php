@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare("SELECT senha FROM cofre WHERE id = 1"); // Supondo que a senha está armazenada no registro com id = 1
         $stmt->execute();
         $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
+        $row = $stmt->fetch_assoc();
 
         if ($row && password_verify($senha, $row["senha"])) {
             $_SESSION["loggedin"] = true;
