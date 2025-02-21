@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 // Define o tipo de conteúdo como JSON
 header('Content-Type: application/json');
 
-// Verificação de login (desativada para testes, ativar em produção)
+// Verificação de login (desativada para testes)
 //if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 //    http_response_code(401);
 //    echo json_encode(["error" => "Acesso não autorizado"]);
@@ -18,25 +18,40 @@ header('Content-Type: application/json');
 
 try {
     $conn = getDbConnection();
+    $conn->set_charset("utf8"); // Garante codificação correta
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        // Debug: Log do início do GET
+        file_put_contents('debug.log', "GET iniciado: " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+
         $stmt = $conn->prepare("SELECT estado FROM cofre WHERE id = 1");
+        if (!$stmt) {
+            throw new Exception("Erro ao preparar a query: " . $conn->error);
+        }
+
         $stmt->execute();
         $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
+        if (!$result) {
+            throw new Exception("Erro ao executar a query: " . $stmt->error);
+        }
 
+        $row = $result->fetch_assoc();
         if ($row) {
-            echo json_encode(["estado" => $row["estado"] ?? "bloqueado"]);
+            $response = ["estado" => $row["estado"] ?? "bloqueado"];
         } else {
             http_response_code(404);
-            echo json_encode(["error" => "Cofre não encontrado"]);
+            $response = ["error" => "Cofre não encontrado"];
         }
+
+        // Debug: Log do fim do GET
+        file_put_contents('debug.log', "GET concluído: " . json_encode($response) . "\n", FILE_APPEND);
+
+        echo json_encode($response);
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["id"]) && isset($_POST["novo_estado"])) {
             $id = $_POST["id"];
             $novo_estado = $_POST["novo_estado"];
 
-            // Validação do estado
             if (!in_array($novo_estado, ["bloqueado", "desbloqueado"])) {
                 http_response_code(400);
                 echo json_encode(["error" => "Estado inválido. Use 'bloqueado' ou 'desbloqueado'"]);
@@ -44,8 +59,11 @@ try {
             }
 
             $stmt = $conn->prepare("UPDATE cofre SET estado = ? WHERE id = ?");
-            $stmt->bind_param("si", $novo_estado, $id);
+            if (!$stmt) {
+                throw new Exception("Erro ao preparar a query: " . $conn->error);
+            }
 
+            $stmt->bind_param("si", $novo_estado, $id);
             if ($stmt->execute()) {
                 echo json_encode(["success" => true, "message" => "Estado atualizado para $novo_estado"]);
             } else {
@@ -66,5 +84,6 @@ try {
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(["error" => "Erro interno: " . $e->getMessage()]);
+    file_put_contents('debug.log', "Erro: " . $e->getMessage() . " - " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 }
 ?>
