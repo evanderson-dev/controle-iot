@@ -1,10 +1,5 @@
 <?php
-session_start();
 include 'db.php';
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 // Define o tipo de conteúdo como JSON
 header('Content-Type: application/json');
@@ -19,8 +14,7 @@ try {
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         file_put_contents('debug.log', "GET iniciado: " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
-        $query = "SELECT estado FROM cofre WHERE id = 1";
-        $result = $conn->query($query);
+        $result = $conn->query("SELECT estado FROM cofre WHERE id = 1");
         if ($result === false) {
             throw new Exception("Erro na query: " . $conn->error);
         }
