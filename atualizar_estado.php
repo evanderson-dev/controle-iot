@@ -20,28 +20,26 @@ try {
     $conn = getDbConnection();
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        // Consulta o estado atual do cofre (id fixo = 1 para o Pico W)
         $stmt = $conn->prepare("SELECT estado FROM cofre WHERE id = 1");
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
 
         if ($row) {
-            echo json_encode(["estado" => $row["estado"] ?? "travado"]);
+            echo json_encode(["estado" => $row["estado"] ?? "bloqueado"]);
         } else {
             http_response_code(404);
             echo json_encode(["error" => "Cofre não encontrado"]);
         }
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Atualiza o estado do cofre
         if (isset($_POST["id"]) && isset($_POST["novo_estado"])) {
             $id = $_POST["id"];
             $novo_estado = $_POST["novo_estado"];
 
-            // Validação básica do estado
-            if (!in_array($novo_estado, ["travado", "destravado"])) {
+            // Validação do estado
+            if (!in_array($novo_estado, ["bloqueado", "desbloqueado"])) {
                 http_response_code(400);
-                echo json_encode(["error" => "Estado inválido. Use 'travado' ou 'destravado'"]);
+                echo json_encode(["error" => "Estado inválido. Use 'bloqueado' ou 'desbloqueado'"]);
                 exit;
             }
 
