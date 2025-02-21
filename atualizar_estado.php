@@ -9,30 +9,20 @@ error_reporting(E_ALL);
 // Define o tipo de conteúdo como JSON
 header('Content-Type: application/json');
 
-// Verificação de login (desativada para testes)
-//if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-//    http_response_code(401);
-//    echo json_encode(["error" => "Acesso não autorizado"]);
-//    exit;
-//}
+// Debug: Log inicial
+file_put_contents('debug.log', "Script iniciado: " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
 try {
     $conn = getDbConnection();
-    $conn->set_charset("utf8"); // Garante codificação correta
+    file_put_contents('debug.log', "Conexão MySQL estabelecida: " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        // Debug: Log do início do GET
         file_put_contents('debug.log', "GET iniciado: " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
-        $stmt = $conn->prepare("SELECT estado FROM cofre WHERE id = 1");
-        if (!$stmt) {
-            throw new Exception("Erro ao preparar a query: " . $conn->error);
-        }
-
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if (!$result) {
-            throw new Exception("Erro ao executar a query: " . $stmt->error);
+        $query = "SELECT estado FROM cofre WHERE id = 1";
+        $result = $conn->query($query);
+        if ($result === false) {
+            throw new Exception("Erro na query: " . $conn->error);
         }
 
         $row = $result->fetch_assoc();
@@ -43,10 +33,10 @@ try {
             $response = ["error" => "Cofre não encontrado"];
         }
 
-        // Debug: Log do fim do GET
         file_put_contents('debug.log', "GET concluído: " . json_encode($response) . "\n", FILE_APPEND);
-
         echo json_encode($response);
+
+        $result->free();
     } elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["id"]) && isset($_POST["novo_estado"])) {
             $id = $_POST["id"];
@@ -69,6 +59,7 @@ try {
             } else {
                 throw new Exception("Erro ao atualizar o estado: " . $stmt->error);
             }
+            $stmt->close();
         } else {
             http_response_code(400);
             echo json_encode(["error" => "Dados incompletos"]);
@@ -78,8 +69,8 @@ try {
         echo json_encode(["error" => "Método não permitido"]);
     }
 
-    $stmt->close();
     $conn->close();
+    file_put_contents('debug.log', "Conexão fechada: " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 
 } catch (Exception $e) {
     http_response_code(500);
