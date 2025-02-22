@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="container">
-        <h1>Login</h1>
+        <h1>Smart Vault - Login</h1>
         <?php if (isset($error)): ?>
             <p style="color: red;"><?php echo htmlspecialchars($error); ?></p>
         <?php endif; ?>

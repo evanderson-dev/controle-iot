@@ -18,7 +18,7 @@ include 'db.php';
 </head>
 <body>
     <div class="container">
-        <h1>Controle do Cofre</h1>
+        <h1>Controle do <strong>Smart Vault</strong></h1>
         <?php
         try {
             $conn = getDbConnection();
